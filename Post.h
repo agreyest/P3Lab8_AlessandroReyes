@@ -5,22 +5,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Usuario;
-//#include "Usuario.h"
+#include "Comment.h"
 
-class Post
-{
+class Post{
 	public:
-		Post(Usuario);
+		Post(string, string);
 		
-		
+		string getCreador();
+		void sumLike();
+		void sumHate();
+		void addComment(Comment*);//para agregar un comentario al post
+		string getContenido();
 		
 		~Post();
 	protected:
 		int likes;
 		int hates;
-		vector<string> comentarios;
-		Usuario creador;
+		string contenido;
+		vector <Comment*> comentarios;
+		string creador;//usuario del creador
 };
 
 #endif

@@ -7,12 +7,18 @@ using namespace std;
 
 #include "Post.h"
 
-class Usuario
-{
+class Usuario{
 	public:
-		Usuario();
+		Usuario(string, string, string);
 		
 		string getUser();
+		string getPassword();
+		string getNombre();
+		void addPost(Post*);
+		void addFollowing(Usuario*);
+		vector<Post*> getPosts();
+		vector<Usuario*> getFollowing();
+		void deleteFollowing(int);
 		
 		~Usuario();
 	protected:
