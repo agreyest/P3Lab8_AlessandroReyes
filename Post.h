@@ -5,10 +5,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Usuario;
+//#include "Usuario.h"
+
 class Post
 {
 	public:
-		Post();
+		Post(Usuario);
 		
 		
 		
@@ -17,6 +20,7 @@ class Post
 		int likes;
 		int hates;
 		vector<string> comentarios;
+		Usuario creador;
 };
 
 #endif

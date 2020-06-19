@@ -12,7 +12,7 @@ class Usuario
 	public:
 		Usuario();
 		
-		
+		string getUser();
 		
 		~Usuario();
 	protected:
@@ -20,6 +20,7 @@ class Usuario
 		string password;
 		string user;
 		vector<Post*> posts;
+		vector<Usuario*> following;
 };
 
 #endif

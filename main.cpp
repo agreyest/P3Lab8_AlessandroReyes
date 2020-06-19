@@ -50,17 +50,40 @@ int main(int argc, char** argv) {
 		switch(opcion){
 			case 1:{//el mero log in
 				
-				break;
-			}
+				break;//brake case1
+			}//fin case1
 			case 2:{//crear usuario
+				string nombre, contrasena, usuario;
+				cout<<"Buen día, ingrese su nombre: ";
+				cin>>nombre;
 				
-				break;
-			}
+				
+				cout<<"Ingrese el usuario que lo distingara en la red social: ";
+				cin>>usuario;
+				int cambiaruser =0;
+				for(int i = 0; i < usuarios.size(); i++){
+					if( usuario == usuarios[i]->getUser() ){//FALTA AGREGAR GET USUARIO
+						cambiaruser = 1;
+					}
+				}
+				while(cambiaruser== 1){
+					cout<<"Ese usuario ya existe, ingre otro usuario que lo distingara en la red social: ";
+					cin>>usuario;
+					for(int i = 0; i < usuarios.size(); i++){
+						if( usuario == usuarios[i]->getUser() ){//FALTA AGREGAR GET USUARIO
+							cambiaruser = 1;
+						}else if( usuario != usuarios[i]->getUser() && i == (usuarios.size()-1) ){
+							cambiaruser = 0;
+						}
+					}
+				}
+				break;//break de case2
+			}//fin case 2
 			case 3:{//salir
 				seguir=0;
 				cout<<"Gracias por usar nuestra aplicacion, que tenga un buen dia.";
-				break;
-			}
+				break;//break case3
+			}//fin case3
 		}//fin del switch
 		
 		if(seguir==1){
