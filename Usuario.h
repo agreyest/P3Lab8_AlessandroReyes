@@ -27,6 +27,9 @@ class Usuario{
 		string user;
 		vector<Post*> posts;
 		vector<Usuario*> following;
+	
+	
+	friend class Archivo;
 };
 
 #endif

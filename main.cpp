@@ -10,14 +10,16 @@ using namespace std;
 
 #include "Usuario.h"
 #include "Post.h"
+#include "Comment.h"
+#include "Archivo.h"
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int menu1();
-int menu2(){
+int menu2(string nom){
 	int retValue=0;
 	while(retValue < 1 || retValue > 7){
-		cout<<"		Age of Empires		"<<endl
+		cout<<"		Bienvenido		"<<nom<<endl
 			<<"  1.- Crear post"<<endl
 			<<"  2.- Comentar post"<<endl
 			<<"  3.- Dar like"<<endl
@@ -42,8 +44,12 @@ int menu2(){
 }//fin metodo de menu
 
 int main(int argc, char** argv) {
-	vector<Usuario*> usuarios;
-	//aqui se debe cargar archivo
+	cout<<"******NOTA IMPORTANTE, SOLO SE GUARDA EN LOS ARCHIVOS CUANDO DA ALGUNA OPCION DE SALIR***********"<<endl<<endl;
+	Archivo* Ausuarios = new Archivo("Usuarios.txt");
+//	Ausuarios->abrirEscritura();
+//	Ausuarios->cerrarEscritura();
+	vector<Usuario*> usuarios = Ausuarios->extraerArchivo();
+	
 	int  opcion = menu1();
 	int seguir = 1;
 	
@@ -75,8 +81,24 @@ int main(int argc, char** argv) {
 					}
 				}//fin del for para chequear el log in
 				
+				cout<<endl<<"****FEED*****"<<endl;
+				for(int i = 0; i < usuarios[numIngresado]->getPosts().size() ; i++){//for para imprimir los post del usuario en log in
+					
+					string name;
+					for(int j = 0; j < usuarios.size() ; j++){//for para agarrar el nombre del creador
+						if(usuarios[j]->getUser() == 
+							usuarios[numIngresado]->getPosts()[i]->getCreador()){
+							cout<<endl<<"______________________________________________________________________________"<<endl;
+							name = usuarios[i]->getNombre();
+							cout<<i<<") "<<name<<endl<<usuarios[numIngresado]->getPosts()[i]->getContenido()<<endl;
+							cout<<"______________________________________________________________________________"<<endl<<endl;
+							break;
+						}
+					}//fin for para agarrar el nombre del creador
+				}//fin for para imprimir los post del usuario en log in
+				
 				while(Ingresado){//while log in
-					int  opcion2 = menu2();
+					int  opcion2 = menu2(usuarios[numIngresado]->getNombre());
 					switch(opcion2){
 						case 1:{//crear post
 							string contenido;
@@ -229,8 +251,13 @@ int main(int argc, char** argv) {
 						
 						case 7:{//log out
 							cout<<"Gracias por usar nuestra aplicacion, que tenga un buen dia.";
-				
+							Ingresado = false;
 							//aqui se debe cargar archivo
+							Ausuarios->abrirEscritura(0);
+							for(int i = 0; i < usuarios.size() ; i++){
+								Ausuarios->guardarUsuario(usuarios[i]);
+							}
+							Ausuarios->cerrarEscritura();
 							break;//break case7
 						}//fin case7
 						
@@ -276,7 +303,11 @@ int main(int argc, char** argv) {
 				cout<<"Gracias por usar nuestra aplicacion, que tenga un buen dia.";
 				
 				//aqui se debe cargar archivo
-				
+				Ausuarios->abrirEscritura(0);
+				for(int i = 0; i < usuarios.size() ; i++){
+					Ausuarios->guardarUsuario(usuarios[i]);
+				}
+				Ausuarios->cerrarEscritura();
 				break;//break case3
 			}//fin case3
 		}//fin del switch
@@ -286,6 +317,10 @@ int main(int argc, char** argv) {
 		}
 	}//fin del while
 	
+	delete Ausuarios;
+	for(int i = 0; i < usuarios.size() ; i++){
+		delete usuarios[i];
+	}
 	return 0;
 }//fin main
 
